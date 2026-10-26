@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CalendarDays, CircleCheck, Clock3 } from 'lucide-react';
+import { AlertCircle, ArrowRight, CalendarDays, Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../hooks/useLanguage';
 import { FieldItem, Language } from '../../types';
@@ -74,7 +74,7 @@ export const CropCalendarCard: React.FC<CropCalendarCardProps> = ({ fields }) =>
 
               <div className="flex shrink-0 items-center gap-2 rounded-xl bg-cream-50 px-3 py-2 text-xs">
                 {reminder.daysUntilDue <= 0 ? (
-                  <CircleCheck size={15} className="text-emerald-700" />
+                  <AlertCircle size={15} className="text-amber-700" />
                 ) : (
                   <Clock3 size={15} className="text-forest-700" />
                 )}

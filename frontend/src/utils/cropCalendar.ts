@@ -53,10 +53,11 @@ export const getCropCheckReminder = (
   const dueDate = referenceDate
     ? new Date(referenceDate.getFullYear(), referenceDate.getMonth(), referenceDate.getDate() + DAYS_BETWEEN_CHECKS)
     : todayStart;
+  const nextDueDate = dueDate < todayStart ? todayStart : dueDate;
 
   return {
-    dueDate,
-    daysUntilDue: toDayNumber(dueDate) - toDayNumber(todayStart),
+    dueDate: nextDueDate,
+    daysUntilDue: toDayNumber(nextDueDate) - toDayNumber(todayStart),
     focus: getGrowthFocus(field.growth_stage),
   };
 };
