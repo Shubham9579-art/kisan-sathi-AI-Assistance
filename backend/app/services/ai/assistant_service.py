@@ -132,7 +132,7 @@ class AssistantService:
                 advice,
                 [],
                 follow_ups,
-                "KisanSathi Local Agricultural Knowledge Engine (Demo Mode)",
+                "KisanSathi Curated Agricultural Knowledge Base",
                 True
             )
 
@@ -193,7 +193,7 @@ class AssistantService:
             advice,
             sources,
             follow_ups,
-            "KisanSathi Local Agricultural Knowledge Engine (Demo Mode)",
+            "KisanSathi Curated Agricultural Knowledge Base",
             True
         )
 

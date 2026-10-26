@@ -9,6 +9,8 @@ export interface AccountUser {
 
 export interface AppConfig {
   project_name: string;
+  ai_provider: string;
+  weather_provider: string;
   is_demo_mode: boolean;
   supported_languages: string[];
   demo_login_enabled: boolean;

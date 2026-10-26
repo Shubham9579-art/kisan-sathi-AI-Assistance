@@ -87,10 +87,10 @@ export const SettingsPage: React.FC = () => {
             <span className="text-gray-500 block text-[11px] font-bold">{t.settings.aiEngine}</span>
             <div className="flex items-center gap-2">
               <span className="font-bold text-gray-900">
-                {config?.is_demo_mode ? t.ui.demoKnowledgeBase : t.ui.liveLlm}
+                {config?.ai_provider === 'gemini' ? t.ui.liveLlm : t.ui.demoKnowledgeBase}
               </span>
-              <Badge variant={config?.is_demo_mode ? 'amber' : 'green'}>
-                {config?.is_demo_mode ? t.ui.verifiedDemo : t.ui.liveSource}
+              <Badge variant={config?.ai_provider === 'gemini' ? 'green' : 'amber'}>
+                {config?.ai_provider === 'gemini' ? t.ui.liveSource : t.ui.verifiedDemo}
               </Badge>
             </div>
             <p className="text-[11px] text-gray-500 leading-relaxed mt-1">
