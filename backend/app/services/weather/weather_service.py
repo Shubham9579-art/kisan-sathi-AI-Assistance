@@ -61,8 +61,9 @@ class WeatherService:
                 )
 
             logger.error(
-                "Live weather providers are unavailable (%s).",
+                "Live weather providers are unavailable (%s): %s",
                 type(exc).__name__,
+                exc,
             )
             raise HTTPException(
                 status_code=503,
@@ -80,6 +81,7 @@ class WeatherService:
         with httpx.Client(timeout=10.0) as client:
             geocode_response = client.get(
                 "https://geocoding-api.open-meteo.com/v1/search",
+                headers={"User-Agent": "KisanSathi/1.0 (agricultural weather service)"},
                 params={
                     "name": district,
                     "count": 5,
@@ -98,6 +100,7 @@ class WeatherService:
 
             response = client.get(
                 "https://api.open-meteo.com/v1/forecast",
+                headers={"User-Agent": "KisanSathi/1.0 (agricultural weather service)"},
                 params={
                     "latitude": place["latitude"],
                     "longitude": place["longitude"],
