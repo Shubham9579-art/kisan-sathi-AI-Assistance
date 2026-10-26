@@ -37,7 +37,7 @@ Most agricultural projects in hackathons are generic chatbot wrappers that hallu
   - Browser-native Speech-to-Text (STT) and Text-to-Speech (TTS) voice reading.
   - Answers organized into 4 clear sections: *What might be happening*, *What to do now*, *What to monitor*, and *When to consult an expert*.
   - Displays reference organization portals when available; current linked guidance is not claimed to have been checked.
-  - When Gemini is configured, answers can use matching crop records from the curated knowledge base; without a key, the app uses its deterministic demo knowledge engine. This is retrieval-augmented guidance, not custom model training.
+  - When Gemini is configured, answers can use matching crop records from the curated knowledge base; without a key, the app returns clearly labelled, rule-based guidance from that knowledge base. This is retrieval-augmented guidance, not custom model training.
 - **Crop Health Checker**:
   - Image upload and preview with 5MB validation.
   - Uses configured Gemini vision for image analysis; if unavailable, clearly identifies text/rule-based guidance instead.
@@ -204,8 +204,8 @@ The local launch scripts require your computer to keep the frontend and backend 
 1. Push this project to a GitHub repository. Keep `.env` files and API keys out of Git.
 2. In Render, create a **Blueprint** and connect that repository.
 3. Review the free web service settings from `render.yaml`, then deploy. This free setup has no persistent disk: SQLite data such as accounts, fields, and chat history can be erased when the service restarts, sleeps, or is redeployed. Do not use it for important or long-term farmer records.
-4. Wait for the service health check to pass, then open the `onrender.com` URL Render provides. The same hosted URL serves the website and API, so no local frontend or backend needs to stay open.
-5. Optional: add provider keys through the Render dashboard's environment settings to enable live AI or weather integrations. Never place keys in frontend files or commit them to the repository.
+4. Wait for the service health check to pass, then open the `onrender.com` URL Render provides. The same hosted URL serves the website and API, so no local frontend or backend needs to stay open. Live weather uses Open-Meteo; sample weather and farmer records are only enabled outside production.
+5. Optional: add `GEMINI_API_KEY` through the Render dashboard's environment settings to enable generated AI responses. Without it, the assistant uses the curated rule-based knowledge base. Never place keys in frontend files or commit them to the repository.
 
 ### Connect `kisansathiai.com`
 

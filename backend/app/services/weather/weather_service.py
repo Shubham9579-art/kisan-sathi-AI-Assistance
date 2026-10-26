@@ -29,6 +29,14 @@ class WeatherService:
                     "OpenWeather fetch failed (%s); trying Open-Meteo.",
                     type(exc).__name__,
                 )
+        elif settings.DEMO_DATA_ENABLED:
+            return self._get_demo_weather(
+                location,
+                district,
+                state,
+                crop_context,
+                growth_stage_context,
+            )
 
         try:
             return self._fetch_live_openmeteo(

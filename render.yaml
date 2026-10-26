@@ -10,7 +10,7 @@ services:
       - key: DATABASE_URL
         value: sqlite:////tmp/kisansathi.db
       - key: AI_PROVIDER
-        value: demo
+        value: curated
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
