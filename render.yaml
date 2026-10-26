@@ -2,13 +2,13 @@ services:
   - type: web
     name: kisansathi-ai
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /api/v1/health
     envVars:
       - key: DATABASE_URL
-        value: sqlite:////var/data/kisansathi.db
+        value: sqlite:////tmp/kisansathi.db
       - key: AI_PROVIDER
         value: demo
       - key: APP_ENV
@@ -17,7 +17,3 @@ services:
         value: "false"
       - key: DEMO_LOGIN_ENABLED
         value: "false"
-    disk:
-      name: kisansathi-data
-      mountPath: /var/data
-      sizeGB: 1

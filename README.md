@@ -203,7 +203,7 @@ The local launch scripts require your computer to keep the frontend and backend 
 
 1. Push this project to a GitHub repository. Keep `.env` files and API keys out of Git.
 2. In Render, create a **Blueprint** and connect that repository.
-3. Review the service and persistent disk settings from `render.yaml`, then deploy. A persistent disk requires a paid hosting plan; check Render's current pricing before approving.
+3. Review the free web service settings from `render.yaml`, then deploy. This free setup has no persistent disk: SQLite data such as accounts, fields, and chat history can be erased when the service restarts, sleeps, or is redeployed. Do not use it for important or long-term farmer records.
 4. Wait for the service health check to pass, then open the `onrender.com` URL Render provides. The same hosted URL serves the website and API, so no local frontend or backend needs to stay open.
 5. Optional: add provider keys through the Render dashboard's environment settings to enable live AI or weather integrations. Never place keys in frontend files or commit them to the repository.
 
