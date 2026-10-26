@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from app.db.session import SessionLocal
 from app.core.config import settings
 from app.models.crop_assessment import CropAssessment
+from app.services.weather.weather_service import WeatherService
 import uuid
 import pytest
 from app.main import app
@@ -31,6 +32,33 @@ def test_public_demo_is_read_only_and_excludes_legacy_private_fields():
         },
     )
     assert create_response.status_code == 401
+
+
+def test_production_guests_do_not_see_sample_farm_records(monkeypatch):
+    monkeypatch.setattr(settings, "DEMO_DATA_ENABLED", False)
+    monkeypatch.setattr(
+        "app.api.routes.dashboard.weather_service.get_weather",
+        lambda **kwargs: WeatherService()._get_demo_weather(
+            kwargs.get("location", "Pune"),
+            kwargs.get("district", "Pune"),
+            kwargs.get("state", "Maharashtra"),
+            "Soybean",
+            "Flowering",
+        ),
+    )
+    client = TestClient(app)
+
+    fields_response = client.get("/api/v1/fields")
+    dashboard = client.get("/api/v1/dashboard")
+
+    assert fields_response.status_code == 200
+    assert fields_response.json() == []
+    assert dashboard.status_code == 200
+    data = dashboard.json()
+    assert data["profile"]["name"] == "Guest farmer"
+    assert data["profile"]["is_demo_profile"] is False
+    assert data["fields"] == []
+    assert all("Gat No. 42" not in task["description"] for task in data["tasks"])
 
 
 def test_accounts_only_read_and_change_their_own_fields():
