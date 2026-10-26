@@ -83,7 +83,10 @@ export const DashboardPage: React.FC = () => {
         setError(t.ui.dashboardLoadError);
       })
       .finally(() => {
-        if (requestId === requestVersion.current) setLoading(false);
+        if (requestId === requestVersion.current) {
+          setLoadedFor(user?.id ?? null);
+          setLoading(false);
+        }
       });
   };
 
