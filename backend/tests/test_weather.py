@@ -208,7 +208,7 @@ def test_production_weather_uses_live_open_meteo_without_api_key(monkeypatch):
         def __exit__(self, exc_type, exc_value, traceback):
             return False
 
-        def get(self, url, params):
+        def get(self, url, params, headers=None):
             if "geocoding" in url:
                 return FakeResponse({
                     "results": [{
@@ -250,7 +250,7 @@ def test_production_weather_reports_provider_outage_instead_of_demo(monkeypatch)
         def __exit__(self, exc_type, exc_value, traceback):
             return False
 
-        def get(self, url, params):
+        def get(self, url, params, headers=None):
             raise httpx.ConnectError("offline")
 
     monkeypatch.setattr(
