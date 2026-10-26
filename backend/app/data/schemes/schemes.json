@@ -1,0 +1,171 @@
+[
+  {
+    "id": "pm-kisan",
+    "name": "PM Kisan Samman Nidhi Yojana",
+    "name_mr": "प्रधानमंत्री किसान सन्मान निधी योजना",
+    "name_hi": "प्रधानमंत्री किसान सम्मान निधि योजना",
+    "category": "Direct Income Support",
+    "description": "Central income-support scheme for eligible landholding farmer families. Confirm the current benefit amount, installment status, and exclusion rules on the official portal.",
+    "description_mr": "पात्र जमीनधारक शेतकरी कुटुंबांसाठी केंद्र सरकारची आर्थिक सहाय्य योजना. सध्याची लाभरक्कम, हप्त्यांची स्थिती आणि अपात्रता नियम अधिकृत पोर्टलवर तपासा.",
+    "description_hi": "पात्र भूमिधारक किसान परिवारों के लिए केंद्र सरकार की आय-सहायता योजना। मौजूदा लाभ राशि, किस्त की स्थिति और अपवर्जन नियम आधिकारिक पोर्टल पर जांचें।",
+    "target_beneficiaries": "All landholding farmer families with cultivable land in their names (subject to exclusion criteria).",
+    "eligibility_criteria": [
+      "Must own cultivable agricultural land in applicant's name with valid 7/12 extract or Land Records.",
+      "Aadhaar card must be linked to bank account with active e-KYC completed.",
+      "Excluded: Institutional landholders, serving/retired government employees, income tax payees, and constitutional post holders."
+    ],
+    "required_documents": [
+      "Aadhaar Card",
+      "7/12 Extract (७/१२ उतारा) / 8-A (८-अ उतारा)",
+      "Aadhaar-seeded Bank Account Passbook",
+      "Active Mobile number linked to Aadhaar"
+    ],
+    "benefits": "Income support is transferred to eligible beneficiaries. Confirm current amounts and installment status on the official portal.",
+    "benefits_mr": "पात्र लाभार्थ्यांना आर्थिक सहाय्य दिले जाते. सध्याची रक्कम आणि हप्त्यांची स्थिती अधिकृत पोर्टलवर तपासा.",
+    "benefits_hi": "पात्र लाभार्थियों को आय-सहायता दी जाती है। मौजूदा राशि और किस्त की स्थिति आधिकारिक पोर्टल पर जांचें।",
+    "application_steps": [
+      "Visit the official PM-KISAN portal (pmkisan.gov.in) or an authorized Common Service Centre (CSC).",
+      "Click on 'New Farmer Registration' under Farmers Corner.",
+      "Enter the requested registration details and select your actual state and district.",
+      "Fill land record details (Survey/Gat number, Khata number, Area) and complete Aadhaar OTP e-KYC."
+    ],
+    "official_portal_url": "https://pmkisan.gov.in",
+    "last_verified": "October 2024",
+    "status": "Needs Verification"
+  },
+  {
+    "id": "namo-shetkari",
+    "name": "Namo Shetkari Mahasanman Nidhi Yojana (Maharashtra)",
+    "name_mr": "नमो शेतकरी महासन्मान निधी योजना (महाराष्ट्र)",
+    "name_hi": "नमो शेतकारी महासम्मान निधि योजना (महाराष्ट्र)",
+    "category": "State Income Support",
+    "description": "Maharashtra supplementary income-support scheme listed for eligible PM-KISAN beneficiaries. Confirm current enrollment, benefit amount, and installment status with the state portal.",
+    "description_mr": "पात्र पीएम-किसान लाभार्थ्यांसाठी महाराष्ट्राची पूरक आर्थिक सहाय्य योजना. सध्याची नोंदणी, लाभरक्कम आणि हप्त्यांची स्थिती राज्याच्या पोर्टलवर तपासा.",
+    "description_hi": "पात्र PM-KISAN लाभार्थियों के लिए महाराष्ट्र की पूरक आय-सहायता योजना। मौजूदा पंजीकरण, लाभ राशि और किस्त की स्थिति राज्य पोर्टल पर जांचें।",
+    "target_beneficiaries": "Farmers of Maharashtra already approved and receiving benefits under the Central PM-KISAN scheme.",
+    "eligibility_criteria": [
+      "Must be a resident of Maharashtra with agricultural land registered in the state.",
+      "Must be an active, verified beneficiary receiving PM-KISAN installments.",
+      "Land record (7/12) and Bank Aadhaar seeding must be in verified status on PM-KISAN portal."
+    ],
+    "required_documents": [
+      "PM-KISAN Registration ID",
+      "Aadhaar Card with biometric e-KYC",
+      "Maharashtra 7/12 Extract with updated Land Record",
+      "Bank Account details linked with NPCI"
+    ],
+    "benefits": "Supplementary income support may be available to eligible beneficiaries. Confirm the current amount and payment schedule with the state portal.",
+    "benefits_mr": "पात्र लाभार्थ्यांना पूरक आर्थिक सहाय्य मिळू शकते. सध्याची रक्कम आणि देयक वेळापत्रक राज्याच्या पोर्टलवर तपासा.",
+    "benefits_hi": "पात्र लाभार्थियों को पूरक आय-सहायता मिल सकती है। मौजूदा राशि और भुगतान कार्यक्रम राज्य पोर्टल पर जांचें।",
+    "application_steps": [
+      "Check the current eligibility and enrollment process on the Maharashtra Agriculture Department portal.",
+      "Verify beneficiary and installment status through the official state portal or an authorized service center.",
+      "Confirm current Aadhaar and bank-mapping requirements with the implementing office."
+    ],
+    "official_portal_url": "https://krishi.maharashtra.gov.in",
+    "last_verified": "October 2024",
+    "status": "Needs Verification"
+  },
+  {
+    "id": "pmfby-crop-insurance",
+    "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+    "name_mr": "प्रधानमंत्री पीक विमा योजना (१ रुपयात पीक विमा)",
+    "name_hi": "प्रधानमंत्री फसल बीमा योजना",
+    "category": "Crop Insurance & Risk Mitigation",
+    "description": "Government crop insurance for notified crops and areas. Coverage, farmer premium, enrollment windows, and claim conditions depend on the current season notification; check the official portal before applying.",
+    "description_mr": "अधिसूचित पिके आणि क्षेत्रांसाठी शासकीय पीक विमा. संरक्षण, शेतकरी हप्ता, नोंदणीची मुदत आणि दावा अटी हंगामाच्या अधिसूचनेनुसार बदलतात; अर्ज करण्यापूर्वी अधिकृत पोर्टल तपासा.",
+    "description_hi": "अधिसूचित फसलों और क्षेत्रों के लिए सरकारी फसल बीमा। कवरेज, किसान प्रीमियम, आवेदन अवधि और दावा शर्तें मौजूदा मौसम की अधिसूचना पर निर्भर हैं; आवेदन से पहले आधिकारिक पोर्टल देखें।",
+    "target_beneficiaries": "All farmers growing notified crops in notified insurance units (both loanee and non-loanee farmers).",
+    "eligibility_criteria": [
+      "Cultivating notified kharif/rabi crops on owned or tenant/sharecropper land.",
+      "Submit the land or sowing documents required by the current state and season notification before its deadline.",
+      "Report crop damage within the deadline and through the channel specified in the current policy."
+    ],
+    "required_documents": [
+      "7/12 Extract (७/१२ उतारा) and Sowing Certificate (पीक पेरा स्वयंघोषणा पत्र)",
+      "Aadhaar Card",
+      "Bank passbook copy showing IFSC and Account Number",
+      "Tenant agreement / Sowing declaration if tenant farmer"
+    ],
+    "benefits": "Coverage and claim terms depend on the notified crop, area, season, and current scheme rules. Confirm the applicable premium and coverage on the official portal.",
+    "benefits_mr": "अधिसूचित पीक, क्षेत्र, हंगाम आणि चालू योजनेच्या नियमांनुसार संरक्षण व दावा अटी लागू होतात. लागू हप्ता आणि संरक्षण अधिकृत पोर्टलवर तपासा.",
+    "benefits_hi": "अधिसूचित फसल, क्षेत्र, मौसम और मौजूदा योजना नियमों के अनुसार कवरेज व दावा शर्तें लागू होती हैं। लागू प्रीमियम और कवरेज आधिकारिक पोर्टल पर जांचें।",
+    "application_steps": [
+      "Apply through PMFBY portal (pmfby.gov.in) or CSC / Aaple Sarkar Kendra within notified season deadline.",
+      "Select State: Maharashtra, Season (Kharif/Rabi), and select survey number from digitized 7/12.",
+      "Check the current season's premium, notification, enrollment deadline, and receipt requirements on the official portal before applying."
+    ],
+    "official_portal_url": "https://pmfby.gov.in",
+    "last_verified": "September 2024",
+    "status": "Needs Verification"
+  },
+  {
+    "id": "mahadbt-micro-irrigation",
+    "name": "MahaDBT Micro Irrigation Subsidy (Drip & Sprinkler)",
+    "name_mr": "महाडीबीटी सूक्ष्म सिंचन योजना (ठिबक व तुषार सिंचन अनुदान)",
+    "name_hi": "महाडीबीटी सूक्ष्म सिंचाई योजना (ड्रिप और स्प्रिंकलर)",
+    "category": "Farm Infrastructure & Water Conservation",
+    "description": "A Maharashtra portal listing for support toward micro-irrigation systems such as drip and sprinkler. Current component availability, subsidy rates, eligible costs, and category rules must be confirmed on the official portal.",
+    "description_mr": "ठिबक व तुषार सिंचनासारख्या सूक्ष्म सिंचनासाठी महाराष्ट्र पोर्टलवरील सहाय्य योजना. सध्याची घटक उपलब्धता, अनुदान दर, पात्र खर्च आणि प्रवर्गाचे नियम अधिकृत पोर्टलवर तपासा.",
+    "description_hi": "ड्रिप और स्प्रिंकलर जैसी सूक्ष्म सिंचाई के लिए महाराष्ट्र पोर्टल पर सहायता योजना। मौजूदा घटक उपलब्धता, सब्सिडी दर, पात्र लागत और श्रेणी नियम आधिकारिक पोर्टल पर जांचें।",
+    "target_beneficiaries": "Farmers of Maharashtra having a perennial water source (well, borewell, canal, farm pond) and electricity connection.",
+    "eligibility_criteria": [
+      "Check the current minimum land and component-specific requirements on the official portal.",
+      "Provide proof of an accepted water source if required by the current component.",
+      "Check current repeat-benefit restrictions for the same survey number."
+    ],
+    "required_documents": [
+      "Aadhaar Card",
+      "7/12 Extract and 8-A Extract with water source entry",
+      "Caste Certificate (for SC/ST farmers to claim enhanced subsidy)",
+      "Authorized BIS/ISI standard equipment quotation from registered dealer",
+      "Electric bill / Water source proof"
+    ],
+    "benefits": "Assistance and subsidy rates depend on the active component and applicant details. Confirm the current amount and approval process on the official portal.",
+    "benefits_mr": "सहाय्य आणि अनुदान दर चालू घटक व अर्जदाराच्या तपशीलांवर अवलंबून असतात. सध्याची रक्कम आणि मंजुरी प्रक्रिया अधिकृत पोर्टलवर तपासा.",
+    "benefits_hi": "सहायता और सब्सिडी दर सक्रिय घटक और आवेदक के विवरण पर निर्भर करते हैं। मौजूदा राशि और मंजूरी प्रक्रिया आधिकारिक पोर्टल पर जांचें।",
+    "application_steps": [
+      "Review current notices on the Maharashtra DBT portal; application routes for some components or locations may have changed.",
+      "Locate the currently available micro-irrigation component and read its eligibility notice.",
+      "Submit only the documents requested by the current application workflow.",
+      "Wait for written approval before purchasing or installing equipment; follow the portal's inspection and payment steps."
+    ],
+    "official_portal_url": "https://mahadbt.maharashtra.gov.in",
+    "last_verified": "October 2024",
+    "status": "Needs Verification"
+  },
+  {
+    "id": "magel-tyala-shettale",
+    "name": "Magel Tyala Shettale / Farm Pond Scheme",
+    "name_mr": "मागेल त्याला शेततळे योजना",
+    "name_hi": "मांगे उसको खेत तलाई योजना",
+    "category": "Water Harvesting",
+    "description": "A Maharashtra listing for farm-pond support. Current scheme availability, technical site conditions, assistance amount, and application process must be confirmed in the official notice.",
+    "description_mr": "शेततळ्यासाठी महाराष्ट्रातील सहाय्य योजना. सध्याची योजना उपलब्धता, जागेच्या तांत्रिक अटी, सहाय्य रक्कम आणि अर्ज प्रक्रिया अधिकृत सूचनेत तपासा.",
+    "description_hi": "खेत तालाब सहायता के लिए महाराष्ट्र की योजना सूची। मौजूदा उपलब्धता, तकनीकी स्थल शर्तें, सहायता राशि और आवेदन प्रक्रिया आधिकारिक सूचना में जांचें।",
+    "target_beneficiaries": "Farmers who meet the land, site, and other conditions in the current official scheme notice.",
+    "eligibility_criteria": [
+      "Check the current landholding and applicant conditions in the official notice.",
+      "The site may require technical assessment for water harvesting and construction feasibility.",
+      "Confirm current construction, lining, and inspection conditions with the implementing office."
+    ],
+    "required_documents": [
+      "Aadhaar Card",
+      "7/12 and 8-A Extract",
+      "Site survey layout / Agriculture Assistant feasibility report",
+      "Bank Account details linked to Aadhaar"
+    ],
+    "benefits": "Assistance amount and eligibility depend on the current scheme notice and technical site assessment. Confirm details with the official portal or implementing office.",
+    "benefits_mr": "सहाय्य रक्कम आणि पात्रता चालू योजनेची सूचना व जागेच्या तांत्रिक तपासणीवर अवलंबून असतात. अधिकृत पोर्टल किंवा अंमलबजावणी कार्यालयाकडून तपासा.",
+    "benefits_hi": "सहायता राशि और पात्रता मौजूदा योजना सूचना तथा तकनीकी स्थल जांच पर निर्भर करती है। आधिकारिक पोर्टल या कार्यान्वयन कार्यालय से पुष्टि करें।",
+    "application_steps": [
+      "Confirm whether this scheme is currently open and identify its official application portal.",
+      "Ask the implementing office which site documents, design, and technical assessment are required.",
+      "Obtain written approval before starting any construction.",
+      "Follow the current inspection and payment instructions in the official notice."
+    ],
+    "official_portal_url": "https://krishi.maharashtra.gov.in",
+    "last_verified": "August 2024",
+    "status": "Needs Verification"
+  }
+]

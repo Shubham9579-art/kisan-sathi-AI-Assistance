@@ -1,0 +1,914 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FDFBF7;
+    color: #1F2937;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leaf-drift {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+}
+
+@keyframes stat-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  background-color: #fdfbf7;
+  background-image:
+    radial-gradient(ellipse at 4% 12%, rgb(134 239 172 / 24%), transparent 30%),
+    radial-gradient(ellipse at 96% 24%, rgb(153 246 228 / 25%), transparent 28%),
+    radial-gradient(ellipse at 78% 84%, rgb(253 230 138 / 19%), transparent 30%),
+    radial-gradient(ellipse at 18% 92%, rgb(187 247 208 / 28%), transparent 34%),
+    linear-gradient(145deg, #fffefa 0%, #f7fcf6 48%, #f2faf6 100%);
+  background-size: 130% 130%;
+  animation: field-glow 34s ease-in-out infinite alternate;
+}
+
+.app-shell::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(ellipse at 100% 23%, transparent 0 45px, rgb(21 128 61 / 4%) 46px 47px, transparent 48px 91px),
+    repeating-linear-gradient(132deg, transparent 0 90px, rgb(21 128 61 / 2.5%) 91px 92px, transparent 93px 180px);
+  content: "";
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.app-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes field-glow {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes weather-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-4px) rotate(3deg);
+  }
+}
+
+main > div {
+  animation: page-enter 420ms ease-out both;
+}
+
+main > div > * {
+  animation: content-enter 420ms ease-out both;
+}
+
+main > div > *:nth-child(2) {
+  animation-delay: 45ms;
+}
+
+main > div > *:nth-child(3) {
+  animation-delay: 90ms;
+}
+
+main > div > *:nth-child(4) {
+  animation-delay: 135ms;
+}
+
+main > div > *:nth-child(5) {
+  animation-delay: 180ms;
+}
+
+main > div > *:nth-child(6) {
+  animation-delay: 225ms;
+}
+
+main .bg-white.border.rounded-2xl {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+main button:not(:disabled) {
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+main button:focus-visible,
+main a:focus-visible {
+  outline: 2px solid #15803D;
+  outline-offset: 3px;
+}
+
+.brand-mark {
+  position: relative;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.brand-mark::after {
+  position: absolute;
+  z-index: -1;
+  inset: -4px;
+  border-radius: inherit;
+  background: rgb(74 222 128 / 35%);
+  content: "";
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.brand-mark svg {
+  animation: leaf-drift 4s ease-in-out infinite;
+}
+
+.dashboard-welcome {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgb(167 243 208 / 75%);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(ellipse at 92% 10%, rgb(167 243 208 / 42%), transparent 34%),
+    linear-gradient(115deg, #ffffff 0%, #f0fdf4 58%, #ecfdf5 100%);
+  padding: 1.1rem 1.25rem;
+}
+
+.dashboard-welcome::after {
+  position: absolute;
+  z-index: -1;
+  top: -2.6rem;
+  right: 2.5rem;
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid rgb(21 128 61 / 12%);
+  border-radius: 2rem;
+  content: "";
+  transform: rotate(35deg);
+}
+
+.dashboard-stat {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  animation: stat-pop 480ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.dashboard-stat > * {
+  position: relative;
+  transform: translateZ(10px);
+}
+
+.dashboard-stat > div:first-child > svg {
+  transform: translateZ(18px);
+}
+
+.dashboard-welcome {
+  min-height: 10.5rem;
+  box-shadow: 0 18px 40px -34px rgb(5 46 22 / 55%);
+}
+
+.dashboard-welcome-art {
+  filter: drop-shadow(0 12px 14px rgb(5 46 22 / 12%));
+  animation: weather-float 6s ease-in-out infinite;
+}
+
+.weather-illustration {
+  box-shadow: 0 0 0 0 rgb(245 158 11 / 15%);
+  animation: weather-float 3.8s ease-in-out infinite;
+  transition: box-shadow 220ms ease, background-color 220ms ease;
+}
+
+@keyframes assistant-message-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes assistant-glint {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.assistant-page {
+  perspective: 1400px;
+}
+
+.assistant-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  min-height: 11rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border: 1px solid rgb(167 243 208 / 70%);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(ellipse at 92% 14%, rgb(167 243 208 / 52%), transparent 38%),
+    linear-gradient(120deg, rgb(255 255 255 / 98%), rgb(236 253 245 / 96%));
+  padding: 1.35rem 1.5rem;
+  box-shadow: 0 18px 40px -32px rgb(5 46 22 / 55%);
+}
+
+.assistant-hero::after {
+  position: absolute;
+  top: -5rem;
+  right: 5rem;
+  width: 15rem;
+  height: 15rem;
+  border: 1px solid rgb(21 128 61 / 10%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.assistant-hero-content,
+.assistant-hero-art,
+.assistant-hero-jump {
+  position: relative;
+  z-index: 1;
+}
+
+.assistant-hero-art {
+  filter: drop-shadow(0 12px 14px rgb(5 46 22 / 12%));
+  animation: weather-float 5s ease-in-out infinite;
+}
+
+.assistant-hero-jump {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(21 128 61 / 16%);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 75%);
+  color: #166534;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.assistant-hero-jump:hover {
+  transform: translateY(2px);
+  background: white;
+}
+
+.assistant-chat-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+.assistant-hero-mark {
+  display: inline-flex;
+  filter: drop-shadow(0 8px 8px rgb(5 46 22 / 18%));
+  transition: transform 240ms ease, filter 240ms ease;
+}
+
+.assistant-brand-mark {
+  transform: translateZ(12px);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.ai-chat-panel {
+  transform-style: preserve-3d;
+  box-shadow: 0 24px 60px -42px rgb(5 46 22 / 48%);
+  transition: box-shadow 240ms ease, border-color 240ms ease, transform 240ms ease;
+}
+
+.ai-chat-header {
+  background:
+    radial-gradient(ellipse at 4% 0%, rgb(187 247 208 / 55%), transparent 35%),
+    linear-gradient(105deg, #f7fbf5, #ffffff 72%);
+}
+
+.ai-chat-controls select {
+  max-width: min(11rem, 34vw);
+}
+
+.ai-chat-messages.is-empty {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(220 252 231 / 48%), transparent 54%),
+    linear-gradient(180deg, #fbfdf9, #fdfbf7 75%);
+}
+
+.ai-chat-empty {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+}
+
+.voice-transcript-card {
+  box-shadow: 0 12px 26px -22px rgb(5 46 22 / 38%);
+}
+
+.assistant-empty-mark {
+  position: relative;
+  isolation: isolate;
+  animation: assistant-glint 4s ease-in-out infinite;
+}
+
+.assistant-empty-mark::after {
+  position: absolute;
+  z-index: -1;
+  inset: -0.4rem;
+  border: 1px solid rgb(21 128 61 / 14%);
+  border-radius: inherit;
+  content: "";
+}
+
+.ai-sparkle-mark {
+  box-shadow: 0 5px 12px -6px rgb(5 46 22 / 70%);
+  transform: translateZ(10px);
+}
+
+.ai-chat-empty > svg {
+  filter: drop-shadow(0 5px 8px rgb(21 128 61 / 20%));
+  animation: leaf-drift 4s ease-in-out infinite;
+}
+
+.ai-message-row {
+  perspective: 900px;
+  animation: assistant-message-enter 360ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.ai-assistant-message > div:nth-child(2) {
+  transform-origin: top left;
+  border-radius: 0.35rem 1.25rem 1.25rem 1.25rem;
+  box-shadow: 0 12px 28px -24px rgb(5 46 22 / 38%);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.ai-user-message > div:first-child {
+  transform-origin: top right;
+  border-radius: 1.25rem 0.35rem 1.25rem 1.25rem;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.ai-message-bubble {
+  overflow-wrap: anywhere;
+}
+
+.suggested-questions {
+  width: 100%;
+}
+
+.suggested-question-card {
+  min-height: 4.25rem;
+  box-shadow: 0 8px 18px -16px rgb(5 46 22 / 42%);
+}
+
+.suggested-question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px -18px rgb(5 46 22 / 38%);
+}
+
+.suggested-question-number {
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.suggested-question-card:hover .suggested-question-number {
+  transform: rotate(-5deg);
+  background-color: #14532d;
+  color: white;
+}
+
+.ai-thinking {
+  box-shadow: 0 8px 20px -16px rgb(5 46 22 / 45%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  main .bg-white.border.rounded-2xl:hover {
+    transform: perspective(1000px) translateY(-3px) rotateX(1deg) rotateY(-0.7deg);
+    box-shadow:
+      0 18px 30px -20px rgb(5 46 22 / 45%),
+      0 5px 12px -8px rgb(5 46 22 / 22%);
+  }
+
+  main button:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+
+  .brand-link:hover .brand-mark::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .brand-link:hover .brand-mark {
+    transform: perspective(500px) rotateY(-10deg) rotateX(5deg) translateY(-1px);
+    box-shadow: 0 12px 20px -10px rgb(5 46 22 / 55%);
+  }
+
+  .dashboard-stat:hover {
+    transform: perspective(900px) translateY(-4px) rotateX(4deg) rotateY(-2deg);
+    box-shadow:
+      0 22px 32px -20px rgb(5 46 22 / 48%),
+      0 6px 12px -8px rgb(5 46 22 / 25%);
+  }
+
+  .bg-white.border.rounded-2xl:hover .weather-illustration {
+    background-color: #fffbeb;
+    box-shadow: 0 0 0 6px rgb(245 158 11 / 10%);
+  }
+
+  .assistant-hero:hover .assistant-hero-mark {
+    transform: perspective(500px) rotateY(-8deg) rotateX(4deg) translateY(-1px);
+    filter: drop-shadow(0 12px 10px rgb(5 46 22 / 28%));
+  }
+
+  .assistant-hero:hover .assistant-brand-mark {
+    transform: translateZ(20px) rotateY(-8deg);
+    box-shadow: 0 8px 16px -8px rgb(5 46 22 / 70%);
+  }
+
+  .ai-chat-panel:hover {
+    border-color: rgb(167 243 208 / 90%);
+    box-shadow: 0 24px 54px -34px rgb(5 46 22 / 48%);
+  }
+
+  .ai-assistant-message:hover > div:nth-child(2) {
+    transform: translateY(-2px) rotateX(1deg);
+    box-shadow: 0 14px 24px -20px rgb(5 46 22 / 45%);
+  }
+
+  .ai-user-message:hover > div:first-child {
+    transform: translateY(-2px) rotateX(1deg);
+    box-shadow: 0 14px 24px -20px rgb(5 46 22 / 50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .brand-mark svg {
+    animation: none;
+  }
+
+  .app-shell,
+  .weather-illustration,
+  .ai-chat-empty > svg {
+    animation: none;
+  }
+
+  .ai-message-row {
+    animation: none;
+  }
+}
+
+.dark-theme body {
+  background-color: #101813;
+  color: #e5eee7;
+}
+
+.dark-theme .app-shell {
+  background-color: #101813;
+  background-image:
+    radial-gradient(ellipse at 4% 12%, rgb(20 83 45 / 27%), transparent 30%),
+    radial-gradient(ellipse at 96% 24%, rgb(19 78 74 / 23%), transparent 28%),
+    radial-gradient(ellipse at 78% 84%, rgb(120 82 18 / 12%), transparent 30%),
+    radial-gradient(ellipse at 18% 92%, rgb(20 83 45 / 22%), transparent 34%),
+    linear-gradient(145deg, #101813 0%, #121d16 48%, #101a17 100%);
+}
+
+.dark-theme .app-shell::before {
+  background-image:
+    repeating-radial-gradient(ellipse at 100% 23%, transparent 0 45px, rgb(134 239 172 / 4%) 46px 47px, transparent 48px 91px),
+    repeating-linear-gradient(132deg, transparent 0 90px, rgb(134 239 172 / 2.5%) 91px 92px, transparent 93px 180px);
+}
+
+.dark-theme header,
+.dark-theme footer,
+.dark-theme aside,
+.dark-theme main .bg-white,
+.dark-theme main .bg-white\/80 {
+  background-color: #17221b;
+}
+
+.dark-theme .bg-cream-50,
+.dark-theme .bg-cream-50\/30 {
+  background-color: #1b2820;
+}
+
+.dark-theme .bg-cream-100 {
+  background-color: #243329;
+}
+
+.dark-theme .bg-forest-50 {
+  background-color: #1c3024;
+}
+
+.dark-theme .bg-forest-100 {
+  background-color: #25402e;
+}
+
+.dark-theme .dashboard-welcome,
+.dark-theme .assistant-hero {
+  border-color: #315b3e;
+  background:
+    radial-gradient(ellipse at 92% 10%, rgb(34 87 53 / 30%), transparent 34%),
+    linear-gradient(115deg, #17221b 0%, #1a2b20 58%, #1b3024 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell {
+    animation: none;
+  }
+}
+
+.dark-theme .assistant-hero-jump,
+.dark-theme .ai-chat-controls > div,
+.dark-theme .ai-chat-controls select,
+.dark-theme .suggested-question-card,
+.dark-theme .demo-otp-card {
+  background-color: #202a23;
+  border-color: #34463a;
+  color: #e5eee7;
+}
+
+.dark-theme .demo-otp-card > div:first-child {
+  border-color: #34463a;
+}
+
+.dark-theme .demo-otp-card input {
+  background-color: #17221b;
+  border-color: #315b3e;
+}
+
+.dark-theme .ai-chat-header {
+  background:
+    radial-gradient(ellipse at 4% 0%, rgb(34 87 53 / 30%), transparent 35%),
+    linear-gradient(105deg, #1b2820, #202a23 70%);
+}
+
+.dark-theme .ai-chat-messages.is-empty {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(34 87 53 / 20%), transparent 54%),
+    linear-gradient(180deg, #1b2820, #17221b 75%);
+}
+
+.dark-theme .voice-transcript-card {
+  background: linear-gradient(105deg, #1c3024, #202a23);
+  border-color: #315b3e;
+}
+
+.dark-theme .suggested-question-number {
+  background-color: #1c3024;
+  color: #b9edc5;
+}
+
+.dark-theme .suggested-question-card:hover .suggested-question-number {
+  background-color: #315b3e;
+  color: #e5eee7;
+}
+
+.dark-theme .assistant-hero-jump:hover {
+  background-color: #26352b;
+}
+
+.dark-theme .bg-white.border,
+.dark-theme main .bg-white.border {
+  border-color: #34463a;
+}
+
+.dark-theme .border-cream-100,
+.dark-theme .border-cream-200,
+.dark-theme .border-cream-300 {
+  border-color: #34463a;
+}
+
+.dark-theme .border-forest-100,
+.dark-theme .border-forest-200 {
+  border-color: #315b3e;
+}
+
+.dark-theme .text-gray-900,
+.dark-theme .text-gray-800,
+.dark-theme .text-gray-700 {
+  color: #e5eee7;
+}
+
+.dark-theme .text-gray-600,
+.dark-theme .text-gray-500,
+.dark-theme .text-gray-400 {
+  color: #a9b8ad;
+}
+
+.dark-theme .text-forest-950,
+.dark-theme .text-forest-900,
+.dark-theme .text-forest-800 {
+  color: #b9edc5;
+}
+
+.dark-theme .text-forest-700 {
+  color: #8ed6a0;
+}
+
+.dark-theme input,
+.dark-theme textarea,
+.dark-theme select {
+  color: #e5eee7;
+  color-scheme: dark;
+}
+
+.dark-theme input::placeholder,
+.dark-theme textarea::placeholder {
+  color: #93a397;
+}
+
+.dark-theme input.bg-cream-50,
+.dark-theme textarea.bg-cream-50 {
+  background-color: #1b2820;
+}
+
+.dark-theme .dashboard-stat {
+  filter: saturate(0.82) brightness(0.82);
+}
+
+.dark-theme .dashboard-stat:hover {
+  filter: saturate(0.92) brightness(0.92);
+}
+
+.dark-theme .ai-assistant-message > div:nth-child(2) {
+  background-color: #202a23;
+  border-color: #34463a;
+}
+
+.dark-theme .ai-thinking {
+  background-color: #202a23;
+  border-color: #34463a;
+  color: #b9edc5;
+}
+
+.dark-theme .ai-user-message > div:first-child {
+  background-color: #14532d;
+}
+
+.dark-theme .assistant-brand-mark {
+  box-shadow: 0 5px 14px rgb(0 0 0 / 28%);
+}
+
+.dark-theme .text-emerald-950,
+.dark-theme .text-emerald-900 {
+  color: #b9edc5;
+}
+
+.dark-theme .text-amber-950,
+.dark-theme .text-amber-900 {
+  color: #f5d89a;
+}
+
+.dark-theme .text-blue-950,
+.dark-theme .text-blue-900 {
+  color: #b9d7f5;
+}
+
+.dark-theme .text-rose-950,
+.dark-theme .text-rose-900 {
+  color: #f4b9c0;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4EFEA;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.dark-theme ::-webkit-scrollbar-track {
+  background: #17221b;
+}
+
+.dark-theme ::-webkit-scrollbar-thumb {
+  background: #526458;
+}
+
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #718477;
+}
+
+/* Keep the agricultural backdrop visible through the main app surfaces. */
+.app-shell > header {
+  border-color: rgb(21 83 45 / 12%);
+  background-color: rgb(255 255 255 / 54%);
+  box-shadow: 0 8px 28px -22px rgb(5 46 22 / 45%);
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+}
+
+.app-shell > div > aside {
+  background-color: rgb(255 255 255 / 50%);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+
+.app-shell > footer {
+  border-color: rgb(21 83 45 / 10%);
+  background-color: rgb(255 255 255 / 44%);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+}
+
+main .bg-white:not(input):not(select):not(textarea):not(button),
+main .bg-white\/80 {
+  background-color: rgb(255 255 255 / 46%);
+  border-color: rgb(255 255 255 / 78%);
+  box-shadow: 0 16px 38px -30px rgb(5 46 22 / 38%);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.dashboard-welcome,
+.assistant-hero {
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.dashboard-welcome {
+  border-color: rgb(167 243 208 / 58%);
+  background:
+    radial-gradient(ellipse at 92% 10%, rgb(167 243 208 / 28%), transparent 34%),
+    linear-gradient(115deg, rgb(255 255 255 / 46%) 0%, rgb(240 253 244 / 40%) 58%, rgb(236 253 245 / 42%) 100%);
+}
+
+.assistant-hero {
+  border-color: rgb(167 243 208 / 56%);
+  background:
+    radial-gradient(ellipse at 92% 14%, rgb(167 243 208 / 30%), transparent 38%),
+    linear-gradient(120deg, rgb(255 255 255 / 46%), rgb(236 253 245 / 40%));
+}
+
+.ai-chat-panel {
+  background-color: rgb(255 255 255 / 40%);
+  border-color: rgb(255 255 255 / 75%);
+  backdrop-filter: blur(22px) saturate(145%);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+}
+
+.ai-chat-header {
+  background:
+    radial-gradient(ellipse at 4% 0%, rgb(187 247 208 / 28%), transparent 35%),
+    linear-gradient(105deg, rgb(247 251 245 / 58%), rgb(255 255 255 / 42%) 72%);
+}
+
+.ai-chat-messages.is-empty {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(220 252 231 / 24%), transparent 54%),
+    linear-gradient(180deg, rgb(251 253 249 / 42%), rgb(253 251 247 / 38%) 75%);
+}
+
+.dark-theme .app-shell > header {
+  border-color: rgb(134 239 172 / 12%);
+  background-color: rgb(23 34 27 / 54%);
+}
+
+.dark-theme .app-shell > div > aside {
+  background-color: rgb(23 34 27 / 50%);
+}
+
+.dark-theme .app-shell > footer {
+  border-color: rgb(134 239 172 / 10%);
+  background-color: rgb(23 34 27 / 44%);
+}
+
+.dark-theme main .bg-white:not(input):not(select):not(textarea):not(button),
+.dark-theme main .bg-white\/80 {
+  background-color: rgb(23 34 27 / 46%);
+  border-color: rgb(134 239 172 / 12%);
+  box-shadow: 0 16px 38px -30px rgb(0 0 0 / 72%);
+}
+
+.dark-theme .dashboard-welcome {
+  border-color: rgb(134 239 172 / 20%);
+  background:
+    radial-gradient(ellipse at 92% 10%, rgb(20 83 45 / 30%), transparent 34%),
+    linear-gradient(115deg, rgb(23 34 27 / 50%) 0%, rgb(28 48 36 / 46%) 58%, rgb(32 50 42 / 48%) 100%);
+}
+
+.dark-theme .assistant-hero {
+  border-color: rgb(134 239 172 / 20%);
+  background:
+    radial-gradient(ellipse at 92% 14%, rgb(20 83 45 / 32%), transparent 38%),
+    linear-gradient(120deg, rgb(23 34 27 / 50%), rgb(28 48 36 / 46%));
+}
+
+.dark-theme .ai-chat-panel {
+  background-color: rgb(23 34 27 / 42%);
+  border-color: rgb(134 239 172 / 15%);
+}
+
+.dark-theme .ai-chat-header {
+  background:
+    radial-gradient(ellipse at 4% 0%, rgb(187 247 208 / 12%), transparent 35%),
+    linear-gradient(105deg, rgb(28 48 36 / 62%), rgb(23 34 27 / 48%) 72%);
+}
+
+.dark-theme .ai-chat-messages.is-empty {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(20 83 45 / 20%), transparent 54%),
+    linear-gradient(180deg, rgb(23 34 27 / 48%), rgb(16 24 19 / 40%) 75%);
+}
+
+.safety-notice {
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+}
+
+.dark-theme .safety-notice {
+  background-color: rgb(28 48 36 / 50%);
+  border-color: rgb(134 239 172 / 22%);
+  color: #c9f1d1;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-shell > header {
+    background-color: rgb(255 255 255 / 94%);
+  }
+
+  .app-shell > div > aside {
+    background-color: rgb(255 255 255 / 92%);
+  }
+
+  main .bg-white:not(input):not(select):not(textarea):not(button),
+  main .bg-white\/80 {
+    background-color: rgb(255 255 255 / 94%);
+  }
+
+  .dark-theme .app-shell > header,
+  .dark-theme .app-shell > div > aside,
+  .dark-theme main .bg-white:not(input):not(select):not(textarea):not(button),
+  .dark-theme main .bg-white\/80 {
+    background-color: rgb(23 34 27 / 96%);
+  }
+}

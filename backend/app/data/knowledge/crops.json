@@ -1,0 +1,191 @@
+[
+  {
+    "id": "soybean-yellow-mosaic",
+    "crop": "Soybean",
+    "crop_mr": "सोयाबीन",
+    "crop_hi": "सोयाबीन",
+    "issue_name": "Yellow Mosaic Virus & Whitefly Vector",
+    "issue_name_mr": "पिवळा मोझॅक रोग आणि पांढरी माशी",
+    "issue_name_hi": "पीला मोज़ेक वायरस और सफेद मक्खी",
+    "keywords": ["yellow", "mosaic", "pivla", "leaves", "pan", "patte", "whitefly", "soybean", "सोयाबीन", "पांढरी माशी", "पिवळे", "चट्टे", "ठिपके", "पाने पिवळी", "पीले", "धब्बे"],
+    "symptoms": "Irregular bright yellow and dark green patches on leaves. Stunted vegetative growth and reduced pod filling.",
+    "symptoms_mr": "पानांवर अनियमित पिवळे आणि हिरवे ठिपके/पट्टे दिसणे. झाडांची वाढ खुंटणे आणि शेंगांमध्ये दाणे न भरणे.",
+    "symptoms_hi": "पत्तियों पर अनियमित पीले और गहरे हरे धब्बे। पौधे का विकास रुक जाना और फलियों में कम दाना भरना।",
+    "what_might_be_happening": "Soybean Yellow Mosaic Virus (YMV), transmitted by the whitefly insect (Bemisia tabaci). It is not a nutritional deficiency.",
+    "immediate_actions": [
+      "Mark affected plants and ask a local agricultural expert whether removal is appropriate for the suspected problem.",
+      "Yellow sticky traps can help monitor whitefly activity; ask a local agricultural expert about suitable placement and density.",
+      "Before using any botanical or chemical treatment, confirm the current crop-specific recommendation and label with a qualified local agricultural expert.",
+      "Avoid excess nitrogen fertilizer which promotes tender succulent leaf growth preferred by whiteflies."
+    ],
+    "monitoring_points": [
+      "Check the undersides of leaves for whiteflies and note whether their numbers are increasing.",
+      "Observe whether yellowing spreads to nearby plants over the next few days."
+    ],
+    "escalation_advice": "If whiteflies are present or yellowing is spreading, consult your local Krishi Vigyan Kendra (KVK) or Taluka Agriculture Officer. Confirm current local guidance before applying any treatment.",
+    "sources": [
+      {
+        "title": "ICAR-Indian Institute of Soybean Research Advisory Bulletin",
+        "organization": "ICAR-IISR Indore",
+        "url": "https://iisrindore.icar.gov.in",
+        "note": "Standard pest management package of practices for Central Zone"
+      },
+      {
+        "title": "Vasantrao Naik Marathwada Krishi Vidyapeeth (VNMKV) Kharif Crop Advisory",
+        "organization": "VNMKV Parbhani",
+        "url": "https://www.vnmkv.ac.in",
+        "note": "Marathwada agro-climatic zone recommendation"
+      }
+    ]
+  },
+  {
+    "id": "cotton-pink-bollworm",
+    "crop": "Cotton",
+    "crop_mr": "कापूस",
+    "crop_hi": "कपास",
+    "issue_name": "Pink Bollworm (गुलाबी बोंडअळी)",
+    "issue_name_mr": "गुलाबी बोंडअळी",
+    "issue_name_hi": "गुलाबी सुंडी (पिंक बॉलवर्म)",
+    "keywords": ["cotton", "kapus", "kapaas", "pink", "bollworm", "bonda", "rosette", "flower", "कापूस", "गुलाबी", "बोंडअळी"],
+    "symptoms": "Rosette flowers (interlocked petals like a rose), small holes on developing bolls plugged with excreta, stained lint inside opened bolls.",
+    "symptoms_mr": "गुलाबाच्या कळीसारखी फुले (रोझेट फ्लॉवर), बोंडांना बारीक छिद्रे, बोंड फोडल्यावर आत गुलाबी अळी व खराब झालेला कापूस.",
+    "symptoms_hi": "गुलाब के फूल जैसी मुड़ी हुई कलियां, गूलर पर बारीक छेद और अंदर गुलाबी रंग की सुंडी का पाया जाना।",
+    "what_might_be_happening": "Pink Bollworm (Pectinophora gossypiella) larva attacking reproductive squares and green bolls, causing yield reduction and lint staining.",
+    "immediate_actions": [
+      "Pheromone traps can support monitoring; ask a local agricultural expert about the appropriate trap and placement for your area.",
+      "Inspect rosette flowers and damaged bolls, and ask a local agricultural expert about safe handling and disposal.",
+      "Ask a qualified local agricultural expert whether biological control is suitable for your crop stage and area.",
+      "Avoid unverified pesticide use; confirm any product is currently registered for the crop and pest and follow its label."
+    ],
+    "monitoring_points": [
+      "Check monitoring traps regularly and record whether moth catches are increasing.",
+      "Ask a local agricultural expert how to inspect bolls safely for signs of larvae."
+    ],
+    "escalation_advice": "If rosette flowers or boll damage are observed, consult your Gram Sevak, Agricultural Development Officer (ADO), or nearest KVK for current locally appropriate guidance before treatment.",
+    "sources": [
+      {
+        "title": "ICAR-Central Institute for Cotton Research (CICR) Pest Management Guide",
+        "organization": "ICAR-CICR Nagpur",
+        "url": "https://cicr.icar.gov.in",
+        "note": "National guidelines for Pink Bollworm Management in Bt Cotton"
+      },
+      {
+        "title": "Dr. Panjabrao Deshmukh Krishi Vidyapeeth (PDKV) Cotton Advisory",
+        "organization": "Dr. PDKV Akola",
+        "url": "https://www.pdkv.ac.in",
+        "note": "Vidarbha regional cotton protection circular"
+      }
+    ]
+  },
+  {
+    "id": "onion-purple-blotch",
+    "crop": "Onion",
+    "crop_mr": "कांदा",
+    "crop_hi": "प्याज",
+    "issue_name": "Purple Blotch (करपा रोग)",
+    "issue_name_mr": "जांभळा करपा रोग",
+    "issue_name_hi": "बैंगनी धब्बा रोग (पर्पल ब्लॉच)",
+    "keywords": ["onion", "kanda", "pyaz", "purple", "blotch", "karpa", "spots", "leaves", "कांदा", "करपा"],
+    "symptoms": "Water-soaked small sunken lesions on leaves turning purple with brown concentric rings, leaves breaking from infected zones.",
+    "symptoms_mr": "पानांवर अंडाकृती जांभळट तपकिरी रंगाचे चट्टे पडणे, चट्टे मोठे होऊन पाने मधूनच वाकणे किंवा जळाल्यासारखी दिसणे.",
+    "symptoms_hi": "पत्तियों पर हल्के भूरे व बैंगनी रंग के धब्बे जो धीरे-धीरे बड़े होकर पत्ती को सुखा देते हैं।",
+    "what_might_be_happening": "Alternaria porri fungal infection, favored by warm humid weather (80%+ humidity) and cloudy rainy conditions common in Maharashtra.",
+    "immediate_actions": [
+      "Maintain clean field drainage to prevent standing water around the onion bulbs.",
+      "Before using a fungicide or additive, confirm current local recommendations, crop registration, and label directions with a qualified agricultural expert.",
+      "Avoid overhead sprinkler irrigation during cloudy weather; prefer furrow or drip method to minimize leaf wetness.",
+      "Rotate crops and avoid continuous planting of allium crops (garlic/onion) on the same plot."
+    ],
+    "monitoring_points": [
+      "Inspect central whorl leaves 48 hours after rain or heavy morning dew.",
+      "Verify whether lesions are turning dark brown with velvet-like spore growth."
+    ],
+    "escalation_advice": "If disease spreads across more than 15% of vegetative canopy during bulb development stage, consult Taluka Agricultural Officer or KVK Niphad / MPKV Rahuri for registered protective fungicide rotation.",
+    "sources": [
+      {
+        "title": "ICAR-Directorate of Onion and Garlic Research (DOGR) Crop Protection Manual",
+        "organization": "ICAR-DOGR Rajgurunagar, Pune",
+        "url": "https://dogr.icar.gov.in",
+        "note": "Maharashtra Kharif and Rangada Onion disease protocols"
+      },
+      {
+        "title": "Mahatma Phule Krishi Vidyapeeth (MPKV) Package of Practices",
+        "organization": "MPKV Rahuri",
+        "url": "https://mpkv.ac.in",
+        "note": "Western Maharashtra vegetable pathology guidelines"
+      }
+    ]
+  },
+  {
+    "id": "sugarcane-red-rot",
+    "crop": "Sugarcane",
+    "crop_mr": "ऊस",
+    "crop_hi": "गन्ना",
+    "issue_name": "Red Rot (तांबेरा/लाल कूज)",
+    "issue_name_mr": "ऊस लाल कूज रोग (तांबेरा)",
+    "issue_name_hi": "गन्ने का लाल सड़न रोग (रेड रॉट)",
+    "keywords": ["sugarcane", "us", "oos", "ganna", "red", "rot", "drying", "tambera", "ऊस", "लाल कूज"],
+    "symptoms": "Third or fourth leaf from top turns yellow and dries from tip along the margins. When stalk is split open, pith shows dull red discoloration with characteristic white cross patches.",
+    "symptoms_mr": "वरच्या भागातील पाने पिवळी पडून कडेने सुकणे. उसाचे कांड उभे चिरल्यास आतून लाल रंग व पांढरे आडवे पट्टे दिसणे आणि आंबट वास येणे.",
+    "symptoms_hi": "ऊपरी पत्तियों का सूखना, गन्ने को चीरने पर भीतर लाल रंग और सफेद आड़े धब्बे दिखना व सिरके जैसी गंध आना।",
+    "what_might_be_happening": "Colletotrichum falcatum fungal pathogen causing systemic vascular destruction in sugarcane canes.",
+    "immediate_actions": [
+      "Mark affected clumps and seek local expert advice on safe removal and disposal; do not burn plant material without checking local rules.",
+      "Do not use potentially affected setts for propagation until a local sugarcane expert has assessed them.",
+      "Ask a qualified local sugarcane expert about suitable planting-material treatment before planting.",
+      "Ensure laser leveling and avoid water stagnation across cane furrows."
+    ],
+    "monitoring_points": [
+      "Examine field for patches of sudden drying across rows after water logging.",
+      "Check cane rind for shrinkage and longitudinal wrinkles."
+    ],
+    "escalation_advice": "Red rot can devastate cane ratoon crops. Contact your local Sugar Mill Cane Development Department (ऊस विकास अधिकारी) or Vasantdada Sugar Institute (VSI) Pune immediately for variety replacement guidance.",
+    "sources": [
+      {
+        "title": "Vasantdada Sugar Institute (VSI) Cane Disease Advisory",
+        "organization": "VSI Pune, Maharashtra",
+        "url": "https://www.vsisugar.com",
+        "note": "Maharashtra sugarcane pathology standard practices"
+      },
+      {
+        "title": "ICAR-Sugarcane Breeding Institute Extension Guide",
+        "organization": "ICAR-SBI Coimbatore",
+        "url": "https://sugarcane.icar.gov.in",
+        "note": "National red rot disease management protocols"
+      }
+    ]
+  },
+  {
+    "id": "pomegranate-bacterial-blight",
+    "crop": "Pomegranate",
+    "crop_mr": "डाळिंब",
+    "crop_hi": "अनार",
+    "issue_name": "Bacterial Blight / Telya (तेल्या रोग)",
+    "issue_name_mr": "डाळिंबावरील तेल्या रोग",
+    "issue_name_hi": "अनार का तेली रोग (बैक्टीरियल ब्लाइट)",
+    "keywords": ["pomegranate", "dalimb", "anar", "telya", "blight", "spots", "cracking", "डाळिंब", "तेल्या"],
+    "symptoms": "Water-soaked oily, dark-brown angular spots on leaves. Characteristic 'L' or 'Y' shaped deep cracks on developing fruits with black oily exudates.",
+    "symptoms_mr": "पानांवर तेलकट काळे टोकदार ठिपके, फळांवर 'L' किंवा 'Y' आकाराच्या खोल भेगा पडणे आणि तेलकट काळपट डाग तयार होणे.",
+    "symptoms_hi": "पत्तियों और फलों पर तैलीय गहरे काले धब्बे, फलों पर अंग्रेजी के 'L' या 'Y' आकार की दरारें पड़ना।",
+    "what_might_be_happening": "Xanthomonas axonopodis pv. punicae bacterial infection, spread primarily through rain splashes, pruning shears, and infected saplings.",
+    "immediate_actions": [
+      "Ask a qualified horticulture expert how to prune affected branches and sanitize tools safely.",
+      "Collect affected plant material for disposal according to local agricultural and municipal guidance; do not burn it.",
+      "Before applying any treatment, confirm the current local recommendation, crop registration, and product label with a qualified horticulture expert.",
+      "Never irrigate through overhead micro-sprinklers; use clean underground drip lines."
+    ],
+    "monitoring_points": [
+      "Check orchard daily following sudden monsoon rain or high humidity spells.",
+      "Observe uninfected fruit skin for minute greasy pin-prick lesions."
+    ],
+    "escalation_advice": "Fruit cracking and oily leaf spots can have multiple causes. Consult ICAR-National Research Centre on Pomegranate (NRCP) Solapur or your district Horticulture Officer for a field assessment and current local guidance.",
+    "sources": [
+      {
+        "title": "ICAR-National Research Centre on Pomegranate Management of Bacterial Blight",
+        "organization": "ICAR-NRCP Solapur, Maharashtra",
+        "url": "https://nrcpomegranate.icar.gov.in",
+        "note": "Official technical advisory bulletin for Telya disease"
+      }
+    ]
+  }
+]
