@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timedelta, timezone
 import httpx
 from typing import Any
+from fastapi import HTTPException
 from app.core.config import settings
 from app.schemas.weather import WeatherResponse, WeatherForecastDay, WeatherAlert, FarmingGuidance, RiskAssessment, CropAdvisory
 
@@ -19,18 +20,236 @@ class WeatherService:
         crop_context: str = "Soybean",
         growth_stage_context: str = "Flowering",
     ) -> WeatherResponse:
-        # Check if live OpenWeather API key is present
+        # Prefer OpenWeather when configured, then use the public Open-Meteo service.
         if self.api_key and len(self.api_key) > 5:
             try:
                 return self._fetch_live_openweather(location, district, state, crop_context, growth_stage_context)
             except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
                 logger.warning(
-                    "OpenWeather fetch failed (%s); returning clearly labelled demo weather.",
+                    "OpenWeather fetch failed (%s); trying Open-Meteo.",
                     type(exc).__name__,
                 )
 
-        # Deterministic, clearly labelled Maharashtra demo weather with practical farming guidance
-        return self._get_demo_weather(location, district, state, crop_context, growth_stage_context)
+        try:
+            return self._fetch_live_openmeteo(
+                location,
+                district,
+                state,
+                crop_context,
+                growth_stage_context,
+            )
+        except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError) as exc:
+            if settings.DEMO_DATA_ENABLED:
+                logger.warning(
+                    "Open-Meteo fetch failed (%s); using development-only demo weather.",
+                    type(exc).__name__,
+                )
+                return self._get_demo_weather(
+                    location,
+                    district,
+                    state,
+                    crop_context,
+                    growth_stage_context,
+                )
+
+            logger.error(
+                "Live weather providers are unavailable (%s).",
+                type(exc).__name__,
+            )
+            raise HTTPException(
+                status_code=503,
+                detail="Live weather is temporarily unavailable. Please try again later.",
+            ) from exc
+
+    def _fetch_live_openmeteo(
+        self,
+        location: str,
+        district: str,
+        state: str,
+        crop_context: str,
+        growth_stage_context: str,
+    ) -> WeatherResponse:
+        with httpx.Client(timeout=10.0) as client:
+            geocode_response = client.get(
+                "https://geocoding-api.open-meteo.com/v1/search",
+                params={
+                    "name": district,
+                    "count": 5,
+                    "language": "en",
+                    "format": "json",
+                },
+            )
+            geocode_response.raise_for_status()
+            results = geocode_response.json().get("results", [])
+            place = next(
+                (result for result in results if result.get("country_code") == "IN"),
+                None,
+            )
+            if place is None:
+                raise ValueError("Open-Meteo could not find the requested Indian location.")
+
+            response = client.get(
+                "https://api.open-meteo.com/v1/forecast",
+                params={
+                    "latitude": place["latitude"],
+                    "longitude": place["longitude"],
+                    "current": (
+                        "temperature_2m,relative_humidity_2m,apparent_temperature,"
+                        "precipitation,weather_code,wind_speed_10m"
+                    ),
+                    "hourly": "precipitation_probability",
+                    "daily": (
+                        "weather_code,temperature_2m_max,temperature_2m_min,"
+                        "precipitation_probability_max"
+                    ),
+                    "forecast_days": 6,
+                    "timezone": "Asia/Kolkata",
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+
+        current = data["current"]
+        hourly = data["hourly"]
+        daily = data["daily"]
+        if not current or not daily.get("time") or not hourly.get("time"):
+            raise ValueError("Open-Meteo returned incomplete weather data.")
+
+        current_time = datetime.fromisoformat(current["time"])
+        hourly_times = [
+            datetime.fromisoformat(value)
+            for value in hourly["time"]
+        ]
+        next_hour_indices = [
+            index
+            for index, value in enumerate(hourly_times)
+            if current_time <= value < current_time + timedelta(hours=6)
+        ]
+        rain_values = hourly["precipitation_probability"]
+        rain_probability = max(
+            (rain_values[index] or 0 for index in next_hour_indices),
+            default=daily.get("precipitation_probability_max", [0])[0] or 0,
+        )
+
+        current_code = int(current["weather_code"])
+        condition, icon = self._openmeteo_condition(current_code)
+        forecast = []
+        for index in range(1, min(6, len(daily["time"]))):
+            forecast_condition, forecast_icon = self._openmeteo_condition(
+                int(daily["weather_code"][index])
+            )
+            forecast_date = datetime.fromisoformat(daily["time"][index])
+            forecast.append(
+                WeatherForecastDay(
+                    day=forecast_date.strftime("%A"),
+                    date=forecast_date.strftime("%d %b"),
+                    temp_max=float(daily["temperature_2m_max"][index]),
+                    temp_min=float(daily["temperature_2m_min"][index]),
+                    condition=forecast_condition,
+                    icon=forecast_icon,
+                    rain_probability_pct=int(
+                        daily["precipitation_probability_max"][index] or 0
+                    ),
+                )
+            )
+
+        temperature = float(current["temperature_2m"])
+        feels_like = float(current["apparent_temperature"])
+        humidity = int(current["relative_humidity_2m"])
+        wind = float(current["wind_speed_10m"])
+        rain_probability = int(rain_probability)
+        risk_summary = self._calculate_risk_scores(
+            temperature,
+            humidity,
+            rain_probability,
+            wind,
+            crop_context,
+            growth_stage_context,
+        )
+        crop_advisories = self._build_crop_advisories(
+            crop_context,
+            growth_stage_context,
+            temperature,
+            humidity,
+            rain_probability,
+            wind,
+        )
+        irrigation_advice = (
+            "Check root-zone soil moisture; the forecast indicates a high chance of rain in the next six hours."
+            if rain_probability >= 60
+            else "Check root-zone soil moisture and the current forecast before deciding whether to irrigate."
+        )
+        spraying_advice = (
+            "Avoid spraying in windy or wet conditions; follow current local advice and the product label."
+            if wind >= 15 or rain_probability >= 50
+            else "Check current local advice and the product label before spraying."
+        )
+        harvesting_advice = (
+            "Check crop maturity and the live forecast; protect harvested produce from rain."
+        )
+        soil_work_advice = (
+            "Check soil moisture and field drainage before tillage or other soil work."
+        )
+        recommended_actions = [
+            irrigation_advice,
+            spraying_advice,
+            harvesting_advice,
+            soil_work_advice,
+        ]
+        place_name = place.get("name", district)
+        admin_area = place.get("admin1") or state
+        display_location = location or f"{place_name}, {admin_area}"
+
+        return WeatherResponse(
+            location=display_location,
+            district=place_name,
+            state=admin_area,
+            temperature_celsius=temperature,
+            feels_like_celsius=feels_like,
+            condition=condition,
+            humidity_pct=humidity,
+            rainfall_prob_pct=rain_probability,
+            wind_speed_kmh=wind,
+            updated_at=current_time.strftime("%d %b %Y, %I:%M %p IST"),
+            is_demo=False,
+            data_source_label="Open-Meteo Live Forecast",
+            guidance=FarmingGuidance(
+                irrigation_advice=irrigation_advice,
+                spraying_advice=spraying_advice,
+                harvesting_advice=harvesting_advice,
+                soil_work_advice=soil_work_advice,
+            ),
+            forecast=forecast,
+            alerts=[],
+            risk_summary=risk_summary,
+            recommended_actions=recommended_actions,
+            crop_advisories=crop_advisories,
+            advisory_summary=(
+                f"Live weather for {display_location}: {rain_probability}% maximum "
+                "precipitation probability in the next six hours. Check field conditions "
+                "before acting."
+            ),
+        )
+
+    @staticmethod
+    def _openmeteo_condition(code: int) -> tuple[str, str]:
+        if code == 0:
+            return "Clear", "sunny"
+        if code in (1, 2):
+            return "Partly cloudy", "partly-cloudy"
+        if code == 3:
+            return "Overcast", "cloudy"
+        if code in (45, 48):
+            return "Fog", "cloudy"
+        if code in (51, 53, 55, 56, 57):
+            return "Drizzle", "rainy"
+        if code in (61, 63, 65, 66, 67, 80, 81, 82):
+            return "Rain", "rainy"
+        if code in (71, 73, 75, 77, 85, 86):
+            return "Snow", "cloudy"
+        if code in (95, 96, 99):
+            return "Thunderstorm", "rainy"
+        return "Unknown", "cloudy"
 
     def _calculate_risk_scores(self, temp_c, humidity_pct, rain_prob_pct, wind_speed_kmh, crop_context="Soybean", growth_stage_context="Flowering") -> RiskAssessment:
         irrigation = min(95, max(25, int((temp_c * 2.0) + (100 - humidity_pct) * 0.6 + rain_prob_pct * 0.1)))
