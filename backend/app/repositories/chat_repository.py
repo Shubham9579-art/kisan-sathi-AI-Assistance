@@ -2,6 +2,7 @@ import uuid
 import json
 from typing import List, Optional
 from sqlalchemy.orm import Session
+from app.core.config import settings
 from app.models.chat import ChatSession, ChatMessage
 from app.schemas.chat import ChatStructuredAdvice, ChatSource
 
@@ -76,5 +77,10 @@ class ChatRepository:
 
     def get_recent_messages(self, limit: int = 10, owner_id: Optional[int] = None) -> List[ChatMessage]:
         query = self.db.query(ChatMessage).join(ChatSession).filter(ChatMessage.sender == "assistant")
-        query = query.filter(ChatSession.owner_id == owner_id) if owner_id else query.filter(ChatSession.is_demo.is_(True))
+        if owner_id:
+            query = query.filter(ChatSession.owner_id == owner_id)
+        elif settings.DEMO_DATA_ENABLED:
+            query = query.filter(ChatSession.is_demo.is_(True))
+        else:
+            return []
         return query.order_by(ChatMessage.created_at.desc()).limit(limit).all()

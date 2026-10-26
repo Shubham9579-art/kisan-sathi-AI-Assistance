@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from typing import Optional
 from sqlalchemy.orm import Session
 from app.api.dependencies.auth import get_optional_user
+from app.core.config import settings
 from app.db.session import get_db
 from app.models.user import User
 from app.repositories.field_repository import FieldRepository
@@ -88,11 +89,11 @@ def get_dashboard(
         ))
 
     profile = FarmerProfile(
-        name=user.name if user else "राजू पाटील (Raju Patil - Demo Farmer)",
+        name=user.name if user else "Guest farmer",
         location=location,
         district=district,
         state=state,
-        is_demo_profile=user is None
+        is_demo_profile=user is None and settings.DEMO_DATA_ENABLED
     )
 
     demo_tasks = [
@@ -121,7 +122,7 @@ def get_dashboard(
             action_route="/schemes"
         )
     ]
-    tasks = demo_tasks if user is None else [
+    tasks = demo_tasks if user is None and settings.DEMO_DATA_ENABLED else [
         DashboardTask(
             id="t1",
             title="Review your latest field conditions",
@@ -152,8 +153,12 @@ def get_dashboard(
         tasks=tasks,
         quick_tips=quick_tips,
         system_status={
-            "database": "SQLite (Persistent)",
-            "ai_mode": "Local Agricultural Knowledge Base (Demo Mode)",
+            "database": "SQLite",
+            "ai_mode": (
+                "Gemini"
+                if settings.GEMINI_API_KEY
+                else "Curated Agricultural Knowledge Base"
+            ),
             "offline_ready": True,
             "field_health_score": field_health_score,
             "weather_alert_level": monitoring_priority,

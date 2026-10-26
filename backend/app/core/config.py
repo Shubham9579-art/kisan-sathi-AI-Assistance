@@ -11,6 +11,7 @@ class Settings(BaseModel):
     APP_ENV: str = os.getenv("APP_ENV", "development")
     APP_DEBUG: bool = os.getenv("APP_DEBUG", "true").lower() == "true"
     SERVE_FRONTEND: bool = os.getenv("SERVE_FRONTEND", "false").lower() == "true"
+    DEMO_DATA_ENABLED: bool = os.getenv("APP_ENV", "development").lower() != "production"
     DEMO_LOGIN_ENABLED: bool = (
         os.getenv("APP_ENV", "development").lower() != "production"
         and os.getenv("DEMO_LOGIN_ENABLED", "true").lower() == "true"

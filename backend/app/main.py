@@ -61,12 +61,13 @@ def migrate_legacy_ownership_columns() -> None:
 
 migrate_legacy_ownership_columns()
 
-# Seed realistic demo data for judges
-try:
-    with SessionLocal() as db:
-        seed_demo_database(db)
-except Exception as e:
-    print(f"Demo seeding notice: {e}")
+# Keep sample farm records out of production databases.
+if settings.DEMO_DATA_ENABLED:
+    try:
+        with SessionLocal() as db:
+            seed_demo_database(db)
+    except Exception as exc:
+        print(f"Demo seeding notice: {exc}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

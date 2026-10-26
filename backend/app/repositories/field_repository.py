@@ -1,5 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
+from app.core.config import settings
 from app.models.field import Field, Observation
 from app.schemas.field import FieldCreate, FieldUpdate, ObservationCreate
 
@@ -9,12 +10,22 @@ class FieldRepository:
 
     def get_all(self, owner_id: Optional[int] = None) -> List[Field]:
         query = self.db.query(Field)
-        query = query.filter(Field.owner_id == owner_id) if owner_id else query.filter(Field.is_demo.is_(True))
+        if owner_id:
+            query = query.filter(Field.owner_id == owner_id)
+        elif settings.DEMO_DATA_ENABLED:
+            query = query.filter(Field.is_demo.is_(True))
+        else:
+            return []
         return query.order_by(Field.id.desc()).all()
 
     def get_by_id(self, field_id: int, owner_id: Optional[int] = None) -> Optional[Field]:
         query = self.db.query(Field).filter(Field.id == field_id)
-        query = query.filter(Field.owner_id == owner_id) if owner_id else query.filter(Field.is_demo.is_(True))
+        if owner_id:
+            query = query.filter(Field.owner_id == owner_id)
+        elif settings.DEMO_DATA_ENABLED:
+            query = query.filter(Field.is_demo.is_(True))
+        else:
+            return None
         return query.first()
 
     def create(self, field_data: FieldCreate, owner_id: int) -> Field:

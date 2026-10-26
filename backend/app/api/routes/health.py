@@ -17,9 +17,9 @@ def get_config():
     config = {
         "project_name": settings.PROJECT_NAME,
         "version": settings.VERSION,
-        "ai_provider": "gemini" if settings.GEMINI_API_KEY else "demo",
-        "weather_provider": "openweather" if settings.OPENWEATHER_API_KEY else "demo",
-        "is_demo_mode": not bool(settings.GEMINI_API_KEY),
+        "ai_provider": "gemini" if settings.GEMINI_API_KEY else "curated",
+        "weather_provider": "openweather" if settings.OPENWEATHER_API_KEY else "open-meteo",
+        "is_demo_mode": settings.DEMO_DATA_ENABLED,
         "supported_languages": ["mr", "hi", "en"],
         "max_upload_size_mb": settings.MAX_UPLOAD_SIZE_BYTES // (1024 * 1024)
     }
