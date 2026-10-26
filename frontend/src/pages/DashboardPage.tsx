@@ -9,6 +9,7 @@ import { QuickActions } from '../components/dashboard/QuickActions';
 import { FieldsOverview } from '../components/dashboard/FieldsOverview';
 import { TasksCard } from '../components/dashboard/TasksCard';
 import { RecentChatsCard } from '../components/dashboard/RecentChatsCard';
+import { CropCalendarCard } from '../components/dashboard/CropCalendarCard';
 import { LoadingSpinner } from '../components/shared/LoadingSpinner';
 import { Lightbulb, AlertTriangle, ShieldCheck, Activity, Droplets, ShieldAlert, ArrowRight, CalendarDays } from 'lucide-react';
 import { readWeatherCache, WEATHER_UPDATED_EVENT } from '../utils/weatherCache';
@@ -283,6 +284,8 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       <QuickActions />
+
+      <CropCalendarCard fields={data.fields} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <FieldsOverview fields={data.fields} />

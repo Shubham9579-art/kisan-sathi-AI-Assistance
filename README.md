@@ -30,6 +30,7 @@ Most agricultural projects in hackathons are generic chatbot wrappers that hallu
 ## 2. Key Features
 
 - **Personalized Farm Dashboard**: Real-time overview of the farmer's profile, local weather, registered plots, prioritized farming tasks, and recent consultations.
+- **Crop Scouting Calendar**: Free weekly field-check reminders based on planting dates and the latest diary entry, with growth-stage-aware observation prompts in Marathi, Hindi, and English. These are scouting reminders, not diagnoses or treatment instructions.
 - **Photo-Based Daily Field Plan**: Select a registered field, upload a crop photo, and get a preliminary assessment with actionable daily tasks. When Gemini vision is configured, the image is analyzed visually; otherwise, the interface clearly labels its text/rule-based fallback. The six-hour irrigation task is a soil-moisture check, not an unconditional watering instruction, and completed tasks can be saved in the field diary.
 - **Transparent dashboard indicators**: Summary indicators are derived from weather-risk heuristics, not direct field measurements or confirmed crop/pest diagnoses. Demo weather and its alerts are illustrative; use current local weather and inspect the field before acting.
 - **AI Farming Assistant (Multilingual & Speech-Enabled)**:
