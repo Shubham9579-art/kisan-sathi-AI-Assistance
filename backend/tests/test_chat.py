@@ -231,5 +231,5 @@ def test_invalid_gemini_output_falls_back_to_curated_response(monkeypatch):
     )
 
     assert result[1] is not None
-    assert result[4] == "KisanSathi Local Agricultural Knowledge Engine (Demo Mode)"
+    assert result[4] == "KisanSathi Curated Agricultural Knowledge Base"
     assert result[5] is True

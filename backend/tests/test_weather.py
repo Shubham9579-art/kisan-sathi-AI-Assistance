@@ -1,6 +1,12 @@
 from datetime import datetime, timezone
+from datetime import timedelta
+from zoneinfo import ZoneInfo
 
+import httpx
+import pytest
+from fastapi import HTTPException
 from app.schemas.weather import WeatherResponse
+from app.core.config import settings
 from app.services.weather.weather_service import WeatherService
 
 
@@ -147,3 +153,113 @@ def test_demo_weather_discloses_simulation_and_avoids_specific_spray_or_irrigati
     assert "cannot identify a safe spraying window" in result.guidance.spraying_advice
     assert all("Demo data only" in action or "Inspect several" in action or "Check actual" in action
                for action in result.recommended_actions)
+
+
+def test_production_weather_uses_live_open_meteo_without_api_key(monkeypatch):
+    monkeypatch.setattr(settings, "DEMO_DATA_ENABLED", False)
+    current_time = datetime.now(ZoneInfo("Asia/Kolkata")).replace(
+        minute=0,
+        second=0,
+        microsecond=0,
+    )
+    forecast = {
+        "current": {
+            "time": current_time.isoformat(),
+            "temperature_2m": 29.0,
+            "relative_humidity_2m": 72,
+            "apparent_temperature": 31.0,
+            "precipitation": 0.0,
+            "weather_code": 3,
+            "wind_speed_10m": 7.2,
+        },
+        "hourly": {
+            "time": [(current_time + timedelta(hours=i)).isoformat() for i in range(24)],
+            "precipitation_probability": [15, 20, 73, 10] + [0] * 20,
+        },
+        "daily": {
+            "time": [
+                (current_time.date() + timedelta(days=i)).isoformat()
+                for i in range(6)
+            ],
+            "weather_code": [3] * 6,
+            "temperature_2m_max": [30.0] * 6,
+            "temperature_2m_min": [20.0] * 6,
+            "precipitation_probability_max": [20] * 6,
+        },
+    }
+
+    class FakeResponse:
+        def __init__(self, payload):
+            self.payload = payload
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return self.payload
+
+    class FakeClient:
+        def __init__(self, timeout):
+            assert timeout == 10.0
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            return False
+
+        def get(self, url, params):
+            if "geocoding" in url:
+                return FakeResponse({
+                    "results": [{
+                        "name": "Akola",
+                        "admin1": "Maharashtra",
+                        "country_code": "IN",
+                        "latitude": 20.7,
+                        "longitude": 77.0,
+                    }]
+                })
+            return FakeResponse(forecast)
+
+    monkeypatch.setattr(
+        "app.services.weather.weather_service.httpx.Client",
+        FakeClient,
+    )
+    result = WeatherService().get_weather(
+        location="Akola, Maharashtra",
+        district="Akola",
+    )
+
+    assert isinstance(result, WeatherResponse)
+    assert result.is_demo is False
+    assert result.data_source_label == "Open-Meteo Live Forecast"
+    assert result.rainfall_prob_pct == 73
+    assert len(result.forecast) == 5
+
+
+def test_production_weather_reports_provider_outage_instead_of_demo(monkeypatch):
+    monkeypatch.setattr(settings, "DEMO_DATA_ENABLED", False)
+
+    class FailedClient:
+        def __init__(self, timeout):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            return False
+
+        def get(self, url, params):
+            raise httpx.ConnectError("offline")
+
+    monkeypatch.setattr(
+        "app.services.weather.weather_service.httpx.Client",
+        FailedClient,
+    )
+
+    with pytest.raises(HTTPException) as error:
+        WeatherService().get_weather()
+
+    assert error.value.status_code == 503
+    assert "temporarily unavailable" in error.value.detail
