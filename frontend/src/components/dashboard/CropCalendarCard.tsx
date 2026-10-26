@@ -4,17 +4,11 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../../hooks/useLanguage';
 import { FieldItem, Language } from '../../types';
 import { localizeCropName, localizeGrowthStage } from '../../utils/localizeAgriculture';
-import { getCropCheckReminder } from '../../utils/cropCalendar';
+import { formatCropCalendarDate, getCropCheckReminder } from '../../utils/cropCalendar';
 
 interface CropCalendarCardProps {
   fields: FieldItem[];
 }
-
-const getLocale = (language: Language): string => {
-  if (language === 'mr') return 'mr-IN';
-  if (language === 'hi') return 'hi-IN';
-  return 'en-IN';
-};
 
 export const CropCalendarCard: React.FC<CropCalendarCardProps> = ({ fields }) => {
   const { t, language } = useLanguage();
@@ -84,10 +78,7 @@ export const CropCalendarCard: React.FC<CropCalendarCardProps> = ({ fields }) =>
                     : t.ui.cropCalendarDueIn.replace('{days}', String(reminder.daysUntilDue))}
                 </span>
                 <span className="text-gray-500">
-                  {reminder.dueDate.toLocaleDateString(getLocale(language), {
-                    day: 'numeric',
-                    month: 'short',
-                  })}
+                  {formatCropCalendarDate(reminder.dueDate, language)}
                 </span>
               </div>
             </article>

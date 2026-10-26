@@ -1,4 +1,4 @@
-import { FieldItem } from '../types';
+import { FieldItem, Language } from '../types';
 
 const DAYS_BETWEEN_CHECKS = 7;
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -27,6 +27,11 @@ export interface CropCheckReminder {
   daysUntilDue: number;
   focus: 'vegetative' | 'flowering' | 'fruiting' | 'maturity' | 'general';
 }
+
+export const formatCropCalendarDate = (date: Date, language: Language): string => {
+  const locale = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
+  return date.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
+};
 
 const getGrowthFocus = (growthStage: string): CropCheckReminder['focus'] => {
   const stage = growthStage.toLowerCase();

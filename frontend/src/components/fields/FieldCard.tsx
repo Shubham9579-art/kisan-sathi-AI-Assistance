@@ -3,10 +3,12 @@ import { FieldItem } from '../../types';
 import { useLanguage } from '../../hooks/useLanguage';
 import { formatDate } from '../../utils/dateFormatter';
 import { localizeAreaUnit, localizeCropName, localizeGrowthStage } from '../../utils/localizeAgriculture';
+import { formatCropCalendarDate, getCropCheckReminder } from '../../utils/cropCalendar';
 import {
   Trees,
   MapPin,
   Calendar,
+  CalendarDays,
   Layers,
   Edit,
   Trash2,
@@ -22,7 +24,7 @@ interface FieldCardProps {
   readOnly?: boolean;
   onEdit: (field: FieldItem) => void;
   onDelete: (fieldId: number) => void;
-  onAddObservation: (fieldId: number) => void;
+  onAddObservation: (fieldId: number, initialNotes?: string) => void;
 }
 
 export const FieldCard: React.FC<FieldCardProps> = ({
@@ -34,6 +36,7 @@ export const FieldCard: React.FC<FieldCardProps> = ({
 }) => {
   const { t, language } = useLanguage();
   const [showTimeline, setShowTimeline] = useState(false);
+  const reminder = getCropCheckReminder(field);
 
   return (
     <div className="bg-white border border-cream-200 rounded-2xl p-5 shadow-xs hover:border-forest-300 transition-all flex flex-col justify-between">
@@ -82,6 +85,39 @@ export const FieldCard: React.FC<FieldCardProps> = ({
             "{field.notes}"
           </p>
         )}
+
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3">
+          <div className="flex items-start gap-2">
+            <CalendarDays size={15} className="mt-0.5 shrink-0 text-forest-800" />
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center justify-between gap-1">
+                <span className="text-xs font-bold text-gray-900">{t.ui.cropCalendarTitle}</span>
+                <span className="text-[10px] font-semibold text-forest-800">
+                  {reminder.daysUntilDue <= 0
+                    ? t.ui.cropCalendarDue
+                    : t.ui.cropCalendarDueIn.replace('{days}', String(reminder.daysUntilDue))}
+                  {' · '}{formatCropCalendarDate(reminder.dueDate, language)}
+                </span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-gray-700">
+                <span className="font-semibold">{t.ui.cropCalendarFocus}: </span>
+                {t.ui[`cropCalendarFocus_${reminder.focus}`]}
+              </p>
+              {!readOnly && (
+                <button
+                  onClick={() => onAddObservation(
+                    field.id,
+                    `${t.ui.cropCalendarLogPrefix} ${t.ui[`cropCalendarFocus_${reminder.focus}`]}`,
+                  )}
+                  className="mt-2 inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-forest-900 hover:bg-emerald-100"
+                >
+                  <PlusCircle size={13} />
+                  {t.ui.cropCalendarLogCheck}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Observation Timeline Preview */}
         <div className="mt-3 pt-3 border-t border-cream-100">

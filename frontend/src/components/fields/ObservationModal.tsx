@@ -4,6 +4,7 @@ import { X, PlusCircle } from 'lucide-react';
 
 interface ObservationModalProps {
   fieldId: number;
+  initialNotes?: string;
   onClose: () => void;
   onSave: (fieldId: number, data: {
     date: string;
@@ -15,6 +16,7 @@ interface ObservationModalProps {
 
 export const ObservationModal: React.FC<ObservationModalProps> = ({
   fieldId,
+  initialNotes = '',
   onClose,
   onSave,
 }) => {
@@ -22,7 +24,7 @@ export const ObservationModal: React.FC<ObservationModalProps> = ({
 
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [growthStage, setGrowthStage] = useState('Flowering');
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState(initialNotes);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {

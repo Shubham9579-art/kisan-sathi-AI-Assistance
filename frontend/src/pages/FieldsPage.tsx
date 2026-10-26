@@ -19,7 +19,10 @@ export const FieldsPage: React.FC = () => {
   const [loadError, setLoadError] = useState(false);
   const [editingField, setEditingField] = useState<FieldItem | null>(null);
   const [showFieldModal, setShowFieldModal] = useState(false);
-  const [activeObsFieldId, setActiveObsFieldId] = useState<number | null>(null);
+  const [activeObservation, setActiveObservation] = useState<{
+    fieldId: number;
+    initialNotes?: string;
+  } | null>(null);
   const [loadedFor, setLoadedFor] = useState<number | null | undefined>(undefined);
   const requestVersion = useRef(0);
 
@@ -52,7 +55,7 @@ export const FieldsPage: React.FC = () => {
     setLoadError(false);
     setEditingField(null);
     setShowFieldModal(false);
-    setActiveObsFieldId(null);
+    setActiveObservation(null);
     fetchFields();
     return () => {
       requestVersion.current += 1;
@@ -167,7 +170,7 @@ export const FieldsPage: React.FC = () => {
                 setShowFieldModal(true);
               }}
               onDelete={handleDeleteField}
-              onAddObservation={(id) => setActiveObsFieldId(id)}
+              onAddObservation={(fieldId, initialNotes) => setActiveObservation({ fieldId, initialNotes })}
             />
           ))}
         </div>
@@ -183,10 +186,11 @@ export const FieldsPage: React.FC = () => {
       )}
 
       {/* Add Observation Modal */}
-      {activeObsFieldId !== null && loadedFor === (user?.id ?? null) && (
+      {activeObservation !== null && loadedFor === (user?.id ?? null) && (
         <ObservationModal
-          fieldId={activeObsFieldId}
-          onClose={() => setActiveObsFieldId(null)}
+          fieldId={activeObservation.fieldId}
+          initialNotes={activeObservation.initialNotes}
+          onClose={() => setActiveObservation(null)}
           onSave={handleSaveObservation}
         />
       )}
