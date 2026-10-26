@@ -13,6 +13,7 @@ import {
 } from '../types';
 
 const API_BASE = ((import.meta as any).env && (import.meta as any).env.VITE_API_BASE_URL) || '/api/v1';
+const REQUEST_TIMEOUT_MS = 25_000;
 
 export class ApiError extends Error {
   constructor(message: string, public readonly status: number) {
@@ -40,6 +41,15 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
       ...(options.headers || {}),
     },
   };
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const abortFromCaller = () => controller.abort();
+  if (options.signal?.aborted) {
+    controller.abort();
+  } else {
+    options.signal?.addEventListener('abort', abortFromCaller, { once: true });
+  }
+  config.signal = controller.signal;
 
   try {
     const response = await fetch(url, config);
@@ -67,6 +77,9 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
       console.error(`API Error on ${endpoint}:`, error);
     }
     throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+    options.signal?.removeEventListener('abort', abortFromCaller);
   }
 }
 
